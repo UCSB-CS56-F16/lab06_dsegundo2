@@ -184,7 +184,8 @@ public class Parser {
     private final ParseAdditive PARSE_ADDITIVE = new ParseAdditive();
     private final ParseMultiplicative PARSE_MULTIPLICATIVE = new ParseMultiplicative();
     private final ParseComparitive PARSE_COMPARITIVE = new ParseComparitive();
-
+    private final ParseExponent PARSE_EXPONENT = new ParseExponent();
+    
     private ParseResult<AST> parseMultiplicativeExpression(final int pos)
 	throws ParserException {
 	return PARSE_MULTIPLICATIVE.parseExp(pos);

@@ -95,4 +95,21 @@ public class DefaultTokenFactory implements TokenFactory {
     */
     
     public Token makeDivideToken() { return new DivideToken(); }
-}
+
+    public Token makeExponentOperatorToken() {return new ExponentToken(); }
+    
+    
+    public Token makeEqualsToken() { return new EqualsToken();  }
+
+    public Token makeNotEqualsToken() {return new NotEqualsToken(); }
+
+    public Token makeLessThanToken() {return new LessThanToken(); }
+
+    public Token makeGreaterThanToken() {return new GreaterThanToken(); }
+
+    public Token makeLessThanOrEqualsToken() {return new LessThanOrEqualsToken(); }
+    
+    public Token makeGreaterThanOrEqualsToken() {return new GreaterThanOrEqualsToken(); }
+
+};
+    
