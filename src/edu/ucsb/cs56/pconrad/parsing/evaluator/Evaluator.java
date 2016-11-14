@@ -19,7 +19,32 @@ public class Evaluator {
 	    } else {
 		return left / right;
 	    }
-	} else {
+	    
+	} else if (operator instanceof Equals) {
+	    if (left == right) return 1;
+	    else return 0;
+	} else if (operator instanceof NotEquals) {
+	    if (left != right) return 1;
+	    else return 0;
+	} else if (operator instanceof LessThan) {
+	    if (left < right) return 1;
+	    else return 0;
+	} else if (operator instanceof LessThanOrEquals) {
+	    if (left <= right) return 1;
+	    else return 0;
+	} else if (operator instanceof GreaterThan) {
+	    if (left > right) return 1;
+	    else return 0;
+	} else if (operator instanceof GreaterThanOrEquals) {
+	    if (left >= right) return 1;
+	    else return 0;
+	} else if (operator instanceof Exponent) {
+	    return (int)Math.pow(left,right);
+	}
+	
+
+	
+	else {
 	    assert(false); // no other operations
 	    return 0; // unreachable
 	}

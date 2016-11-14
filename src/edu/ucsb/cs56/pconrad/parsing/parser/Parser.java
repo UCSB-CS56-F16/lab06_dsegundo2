@@ -159,7 +159,7 @@ public class Parser {
      */
     private class ParseMultiplicative extends ParseAdditiveOrMultiplicative {
 	public ParseResult<AST> parseBase(final int pos) throws ParserException {
-	    return parsePrimary(pos);
+	    return parseExponentExpression(pos);
 	}
 	public ParseResult<Operator> parseOp(final int pos) throws ParserException {
 	    return parseTimesDiv(pos);
@@ -184,7 +184,7 @@ public class Parser {
     private final ParseAdditive PARSE_ADDITIVE = new ParseAdditive();
     private final ParseMultiplicative PARSE_MULTIPLICATIVE = new ParseMultiplicative();
     private final ParseComparitive PARSE_COMPARITIVE = new ParseComparitive();
-
+   
     private ParseResult<AST> parseMultiplicativeExpression(final int pos)
 	throws ParserException {
 	return PARSE_MULTIPLICATIVE.parseExp(pos);
@@ -199,16 +199,27 @@ public class Parser {
 	throws ParserException {
 	return PARSE_COMPARITIVE.parseExp(pos);
     }
-
-    private ParseResult<AST> parseExponentExpression(final int pos)
-	throws ParserException {
-	return PARSE_EXPONENT.parseExp(pos);
-    }
     
-
     
     // END CODE FOR MULIPLICATIVE AND ADDITIVE EXPRESSIONS
 
+    private ParseResult<AST> parseExponentExpression(final int pos) throws ParserException{
+	ParseResult<AST> curResult = parsePrimary(pos);
+
+	try {
+		final ParseResult<Operator> opResult = parseExponent(curResult.getNextPos());
+		final ParseResult<AST> nextBaseResult = parseExponentExpression(opResult.getNextPos());
+		curResult = new ParseResult<AST>(new Binop(curResult.getResult(),
+							   opResult.getResult(),
+							   nextBaseResult.getResult()),
+						 nextBaseResult.getNextPos());
+	} catch (ParserException e) {}
+
+	return curResult;
+    }
+
+
+    
     private ParseResult<AST> parseExpression(final int pos) throws ParserException {
 	return parseComparitiveExpression(pos);
     }
